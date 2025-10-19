@@ -17,34 +17,6 @@
 
 LOCAL_PATH := device/motorola/cancunf
 
-include $(CLEAR_VARS)
-
-# Defina o alvo do vendorboot
-INSTALLED_VENDORBOOT_TARGET := $(PRODUCT_OUT)/vendorboot.img
-
-# Arquivos necessários
-MKBOOTIMG := $(HOST_OUT_EXECUTABLES)/mkbootimg
-TARGET_PREBUILT_KERNEL := $(LOCAL_PATH)/prebuilt/Image
-TARGET_PREBUILT_DTB := $(LOCAL_PATH)/prebuilt/mt6855.dtb
-
-# Defina o comando de construção do vendorboot.img
-$(INSTALLED_VENDORBOOT_TARGET): $(MKBOOTIMG) $(TARGET_PREBUILT_KERNEL) $(TARGET_PREBUILT_DTB)
-	@echo "---- Building vendorboot.img ----"
-	$(MKBOOTIMG) \
-		--kernel $(TARGET_PREBUILT_KERNEL) \
-		--dtb $(TARGET_PREBUILT_DTB) \
-		--cmdline "$(BOARD_KERNEL_CMDLINE)" \
-		--header_version $(BOARD_BOOT_HEADER_VERSION) \
-		--pagesize $(BOARD_KERNEL_PAGESIZE) \
-		--base $(BOARD_KERNEL_BASE) \
-		--os_version $(PLATFORM_VERSION) \
-		--os_patch_level $(PLATFORM_SECURITY_PATCH) \
-		--output $@
-
-.PHONY: vendorboot
-vendorboot: $(INSTALLED_VENDORBOOT_TARGET)
-
-
 # Dynamic partitions
 PRODUCT_USE_DYNAMIC_PARTITIONS := true
 
