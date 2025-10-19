@@ -11,6 +11,7 @@ TARGET_PREBUILT_DTB := $(LOCAL_PATH)/prebuilt/mt6855.dtb
 # Build rule for vendorboot.img
 $(INSTALLED_VENDORBOOT_TARGET): $(MKBOOTIMG) $(TARGET_PREBUILT_KERNEL) $(TARGET_PREBUILT_DTB)
 	@echo "---- Building vendorboot.img ----"
+	mkdir -p $(PRODUCT_OUT)
 	$(MKBOOTIMG) \
 		--kernel $(TARGET_PREBUILT_KERNEL) \
 		--dtb $(TARGET_PREBUILT_DTB) \
@@ -20,7 +21,7 @@ $(INSTALLED_VENDORBOOT_TARGET): $(MKBOOTIMG) $(TARGET_PREBUILT_KERNEL) $(TARGET_
 		--base $(BOARD_KERNEL_BASE) \
 		--os_version $(PLATFORM_VERSION) \
 		--os_patch_level $(PLATFORM_SECURITY_PATCH) \
-		--output $@
+		--output $(PRODUCT_OUT)/vendorboot.img
 
 .PHONY: vendorboot
 vendorboot: $(INSTALLED_VENDORBOOT_TARGET)
