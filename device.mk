@@ -50,4 +50,5 @@ PRODUCT_PACKAGES += \
     update_verifier \
     update_engine_sideload
 
-include $(LOCAL_PATH)/vendorboot.mk
+include device/motorola/cancunf/vendorboot.mk
+
